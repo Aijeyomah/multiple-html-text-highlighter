@@ -1,9 +1,14 @@
 import { v4 as uuidv4 } from 'uuid';
 import { TextUtil } from "./utils/text.util";
-import { Revision, Options, Parser } from "./utils/text.util.interface";
+import { Revision, Options, Parser, NewSpan } from "./utils/text.util.interface";
 
 const textUtil = new TextUtil;
-
+/**
+ * 
+ *
+ * @export
+ * @class TextParser
+ */
 export class TextParser {
     htmlText: string = '';
     targetText: string = '';
@@ -43,8 +48,14 @@ export class TextParser {
 
         this.changeRevisions.push(revision)
     }
-
-     getHighlightedHtmlResult() {
+    /**
+     *
+     *
+     * @return {string} The whole html text with the the highleted text 
+     * wrapped in a span with an id contaoining the prefix passed if the targerted text is present
+     * @memberof TextParser
+     */
+    getHighlightedHtmlResult(): string {
         const targetedIndex: number = this.htmlText.indexOf(this.targetText);
         if (targetedIndex < 0) {
             return this.htmlText;
@@ -54,14 +65,22 @@ export class TextParser {
         return `${this.leftHtmlText}${this.processedTargetedText}${this.rightHtmlText}`;
     }
 
-    private getNewIndexAfterRevisions(index: number) {
+    /**
+     * get c
+     *
+     * @private
+     * @param {number} index 
+     * @return {number} - index of the targeted text after  open or close span tag
+     * @memberof TextParser
+     */
+    private getNewIndexAfterRevisions(index: number):number {
         if (index === 0) return index;
-
         index = this.insertedWords.length + index;
+        
         return index;
     }
 
-    private addNewSpan(isLast: boolean) {
+    private addNewSpan(isLast: boolean): NewSpan {
         const id: string = uuidv4();
         const { prefix = '' } = this.options;
         const spanText: string = isLast ? '</span>' : `<span id='${prefix}${id}'>`;
@@ -72,7 +91,7 @@ export class TextParser {
         return span;
     }
 
-    private saveUpdate(options: Options) {
+    private saveUpdate(options: Options):void {
         const { spanText, index, id } = options;
         const leftPartIncludingCharAtIndex = this.processedTargetedText.substr(0, index);
         const rightPart = this.processedTargetedText.substr(index);
@@ -85,13 +104,13 @@ export class TextParser {
         this.updateChangeRevision(spanText, index, id);
     }
 
-    private insertSpan(index: number, isLast: boolean = false) {
+    private insertSpan(index: number, isLast: boolean = false): void{
         const { text: spanText, id } = this.addNewSpan(isLast);
         index = this.getNewIndexAfterRevisions(index)
         return this.saveUpdate({ spanText, index, id, isBeginning: false })
     }
 
-    parser():Parser {
+    parser(): Parser {
 
         let seenNonTag: boolean = false;
 
@@ -126,7 +145,7 @@ export class TextParser {
 
                     } else {
                         if (isCharAtTheLastIndex) {
-
+                            
                             this.insertSpan(charStartIndex)
 
                             const isLast: boolean = true;
@@ -187,12 +206,12 @@ export class TextParser {
         }
 
         return {
-           revisionHistory : this.changeRevisions,
-           processTargetedText: this.processedTargetedText,
-           totalProcessedText: this.insertedWords,
-           highlightedHtmlResult: this.getHighlightedHtmlResult(),
-           initialTargetText: this.originalTargetedText,
-           formattedTargetedText: this.targetText
+            revisionHistory: this.changeRevisions,
+            processTargetedText: this.processedTargetedText,
+            totalProcessedText: this.insertedWords,
+            highlightedHtmlResult: this.getHighlightedHtmlResult(),
+            initialTargetText: this.originalTargetedText,
+            formattedTargetedText: this.targetText
         }
     }
 

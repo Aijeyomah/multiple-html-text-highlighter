@@ -34,3 +34,8 @@ export interface Parser{
     initialTargetText: string,
     formattedTargetedText: string
 }
+
+export interface NewSpan{
+    text: string,
+    id: string
+}
