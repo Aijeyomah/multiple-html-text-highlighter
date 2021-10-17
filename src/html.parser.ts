@@ -107,7 +107,7 @@ export class TextParser {
 
             if (!textUtil.beginsWithOpenTag(char)) {
                 if (seenStartTag) {
-                    if (char === textUtil.checkTagInText().closingTag) {
+                    if (char === textUtil.checkTagInText().closingSign) {
                         seenNonTag = false;
 
                         charStartIndex = i;
@@ -143,7 +143,7 @@ export class TextParser {
             } else {
                 if (seenStartTag) {
                     //<>
-                    if (char === textUtil.checkTagInText().closingTag) {
+                    if (char === textUtil.checkTagInText().closingSign) {
                         seenNonTag = false;
 
                         charStartIndex = i;

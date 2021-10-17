@@ -1,6 +1,6 @@
 export interface TagType {
-    openingTag: string;
-    closingTag: string;
+    openingSign: string;
+    closingSign: string;
 }
 
 export interface TagIndexes {
