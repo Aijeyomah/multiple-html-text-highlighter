@@ -31,14 +31,14 @@ export default class Highlight {
 }
 }
 
-const highlightHtml = new Highlight;
+// const highlightHtml = new Highlight;
 
-let highlight = highlightHtml.highlightContent("content");
+// let highlight = highlightHtml.highlightContent("content");
 
-btn.addEventListener("click", highlight, false);
+// btn.addEventListener("click", highlight, false);
 
-// window.addEventListener("DOMContentLoaded", (e)=>{
+// // window.addEventListener("DOMContentLoaded", (e)=>{
   
-// })
+// // })
 
-  // = highlight("content")
+//   // = highlight("content")

@@ -1,6 +1,6 @@
 {
   "name": "html-multiple-text-highlighter",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "",
   "main": "./dist/bundle.js",
   "files": [
@@ -14,7 +14,7 @@
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "start": "ts-node src/*.ts",
-    "publish": "npm publish"
+    "publish": "webpack --mode=production && exit 1 && npm publish"
   },
   "repository": {
     "type": "git",
