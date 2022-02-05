@@ -57,6 +57,7 @@ export class TextParser {
      */
     getHighlightedHtmlResult(): string {
         const targetedIndex: number = this.htmlText.indexOf(this.targetText);
+       
         if (targetedIndex < 0) {
             return this.htmlText;
         }
@@ -111,7 +112,6 @@ export class TextParser {
     }
 
     parser(): Parser {
-
         let seenNonTag: boolean = false;
 
         let seenStartTag: boolean = false;
@@ -121,6 +121,7 @@ export class TextParser {
 
         for (let i: number = 0; i < this.targetText.length; i++) {
             const char: string = this.targetText[i];
+            
 
             const isCharAtTheLastIndex: boolean = (i === this.targetText.length - 1);
 
@@ -204,7 +205,8 @@ export class TextParser {
                 break;
             }
         }
-
+       
+        
         return {
             revisionHistory: this.changeRevisions,
             processTargetedText: this.processedTargetedText,

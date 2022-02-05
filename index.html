@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        span[id^=volley] {
+            background-color: yellow;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class='content' id="content">
+        <h1>
+            This is <b>Magic!</b>
+        </h1>
+        <section class="description">
+            <a href='google.com'>Lorem ipsum dolor sit amet</a> consectetur adipisicing elit. <> Similique quasi illum
+                veritatis repudiandae <b>eligendi magni iste,</b> voluptas adipisci architecto commodi nihil corporis
+                quam, temporibus qui, dolorem reprehenderit quaerat a officiis.
+        </section>
+        <table>
+            <tr>
+                <th>Company</th>
+                <th>Contact</th>
+                <th>Country</th>
+            </tr>
+            <tr>
+                <td>Alfreds Futterkiste</td>
+                <td>Maria Anders</td>
+                <td>Germany</td>
+            </tr>
+            <tr>
+                <td>Centro comercial Moctezuma</td>
+                <td>Francisco Chang</td>
+                <td>Mexico</td>
+            </tr>
+        </table>
+        <p>
+            Something
+            <b>different</b>
+            <span>Right now</span>
+            brand new <span> Long <code>life</code> </span>
+
+        </p>
+
+    </div>
+    <button id="btn">highlight</button>
+    <script src="dist/index.js" type="module">
+        const highlightHtml = new Highlight;
+        let highlight = highlightHtml.highlightContent("content");
+        btn.addEventListener("click", highlight, false);
+    </script>
+</body>
+
+</html>

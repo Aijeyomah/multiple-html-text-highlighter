@@ -50,7 +50,7 @@ export class TextUtil {
     * @memberof TextUtil
     */
     endsWithClosingTag(targetedHtmlText: string): boolean {
-
+        
         return targetedHtmlText[targetedHtmlText.length - 1] === this.checkTagInText().closingSign
 
     }
@@ -83,11 +83,14 @@ export class TextUtil {
      * @memberof TextUtil
      */
     removeFirstOpeningTag(targetedText: string): string {
-
+        
         const { targetedText: newtargetedText } = this.identifyNextOpenTagIndex(targetedText);
 
         if (targetedText[0] === this.checkTagInText().openingSign) {
+
             return this.removeFirstOpeningTag(newtargetedText)
+        
+            
         } else {
             return newtargetedText;
         }
@@ -102,14 +105,18 @@ export class TextUtil {
      * @memberof TextUtil
      */
     private identifyNextOpenTagIndex(targetedText: string): TagIndexes {
+        
+        
         let tagStartIndex: number = 0;
-        let tagEndIndex: number = 0;
+        let tagEndIndex: number  = 0;
         let seenStartTag = false;
 
         for (let i = 0; i < targetedText.length; ++i) {
+           
             if (!seenStartTag && targetedText[i] === this.checkTagInText().openingSign) {
                 tagStartIndex = i;
                 seenStartTag = true;
+                break
             }
 
             if (targetedText[i] === this.checkTagInText().closingSign) {
@@ -117,11 +124,13 @@ export class TextUtil {
                 break;
             }
         }
-
+       
+        
         targetedText = this.abstractTextFromTag(targetedText, tagStartIndex, tagEndIndex);
+        
         return { tagStartIndex, tagEndIndex, targetedText }
 
-    }
+    };
 
 
     /**
@@ -132,14 +141,16 @@ export class TextUtil {
      * @memberof TextUtil
      */
     removeLastClosingTag(targetedText: string, startIndex: number | null = null): string {
-
+       
         const { targetedText: newtargetedText, tagStartIndex } = this.identifyNextClosingTagIndex(targetedText, startIndex);
 
+
         if (targetedText[tagStartIndex - 1] === this.checkTagInText().closingSign) {
+            
             return this.removeLastClosingTag(newtargetedText, tagStartIndex - 1)
         } else {
             return newtargetedText;
-        }
+      }
     }
 
 
@@ -152,11 +163,14 @@ export class TextUtil {
      * @memberof TextUtil
      */
     private identifyNextClosingTagIndex(targetedText: string, startIndex: null | number): TagIndexes {
+       
         let tagStartIndex: number = 0;
         let tagEndIndex: number = 0;
         let seenEndTag = false;
 
         for (let i = startIndex || targetedText.length - 1; i >= 0; --i) {
+            
+            
             if (!seenEndTag && targetedText[i] === this.checkTagInText().closingSign) {
                 tagEndIndex = i;
                 seenEndTag = true;
